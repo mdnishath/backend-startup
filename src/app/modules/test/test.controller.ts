@@ -18,6 +18,17 @@ const createTestCollection = catchAsync(async (req, res) => {
   });
 });
 
+// Get all test collection controller
+const getCollections = catchAsync(async (req, res) => {
+  const collections = await TestServices.getCollections(req.query);
+  sendSuccessResponse(res, {
+    statusCode: 200,
+    message: 'Test collection fetched successfully',
+    data: collections,
+  });
+});
+
 export const TestControllers = {
   createTestCollection,
+  getCollections,
 };

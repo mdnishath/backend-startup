@@ -5,5 +5,6 @@ import { TestControllers } from './test.controller';
 const router = express.Router();
 
 router.post('/', TestControllers.createTestCollection);
+router.get('/', TestControllers.getCollections);
 
 export const TestRoutes = router;
