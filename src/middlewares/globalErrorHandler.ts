@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NODE_ENV } from '../app/config';
 import { Request, Response, NextFunction } from 'express';
+import { TErrorResponse } from '../app/interface/TErrorResponse';
+import { errorProcess } from '../app/helpers/errorHelpers/errorProcess';
 
 const globalErrorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
-  // console.log(error);
-
-  const errorResponse = {
-    // Fallback error response
+  let errorResponse: TErrorResponse = {
     statusCode: error.statusCode || 500,
     status: error.status || 'error',
     message: error.message || 'Something went wrong',
     issues: error.issues || [],
   };
 
+  errorResponse = errorProcess(error);
   res.status(errorResponse.statusCode).json({
     status: errorResponse.status,
     message: errorResponse.message,
